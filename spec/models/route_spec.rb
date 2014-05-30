@@ -1,5 +1,6 @@
 require 'spec_helper'
 
 describe Route do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should have_many(:route_stops)}
+  it { should have_many(:stops).through(:route_stops) }
 end
