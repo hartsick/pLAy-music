@@ -26,6 +26,7 @@ task :populate_metro_data => [:environment] do |t, args|
 		end
 
 		puts "Completed loading #{filename}..."
+
 	end
 end
 
