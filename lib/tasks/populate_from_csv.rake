@@ -1,5 +1,5 @@
 # store csv info into psql
-task :populate_metro_data => [:environment] do |t, args|
+task :populate_metro_data => [:environment] do 
 	require 'csv'
 
 	# build csv / model library
@@ -32,7 +32,7 @@ end
 
 
 # populate table with useful route data
-task :aggregate_route_data => [:environment, :populate_metro_data] do
+task :aggregate_route_data => [:environment] do
 
 	RawRoute.find_each do |raw_route|
 		route = Route.new
@@ -48,7 +48,7 @@ end
 
 
 # populate table with useful stop data
-task :aggregate_stop_data => [:environment, :populate_metro_data] do
+task :aggregate_stop_data => [:environment] do
 
 	RawStop.find_each do |raw_stop|
 		stop = Stop.new
@@ -86,10 +86,11 @@ task :associate_stops_to_route => [:environment, :aggregate_stop_data, :aggregat
 		# holder for winning trip (for route!)
 		route_trip = trips.first
 
+		# initialize
+		longest_trip = 0
+
 		# iterate through each trip for route
 		trips.each do |trip|
-
-			longest_trip = 0
 
 			# grab all stops for a given trip
 			trip_stops = RawStopTime.where(trip_id: trip.trip_id)
