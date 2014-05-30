@@ -13,3 +13,15 @@ Started GET "/" for 127.0.0.1 at 2014-05-27 18:25:47 -0700
 Processing by Rails::WelcomeController#index as HTML
   Rendered /Users/Christa/.rbenv/versions/2.1.1/lib/ruby/gems/2.1.0/gems/railties-4.0.4/lib/rails/templates/rails/welcome/index.html.erb (0.0ms)
 Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 0.0ms)
+  [1m[36mSQL (5.8ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (44.4ms)[0m  CREATE TABLE "raw_routes" ("id" serial primary key, "route_id" character varying(255), "route_short_name" character varying(255), "route_long_name" character varying(255), "route_desc" character varying(255), "route_type" integer, "route_color" character varying(255), "route_text_color" character varying(255), "route_url" character varying(255), "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "route_stops" ("id" serial primary key, "route_id" integer, "stop_id" integer, "stop_sequence" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.8ms)[0m  CREATE INDEX "index_route_stops_on_route_id" ON "route_stops" USING btree ("route_id")
+  [1m[36m (0.8ms)[0m  [1mCREATE INDEX "index_route_stops_on_stop_id" ON "route_stops" USING btree ("stop_id")[0m
+  [1m[35m (5.9ms)[0m  CREATE TABLE "routes" ("id" serial primary key, "route_id" character varying(255), "route_short_name" character varying(255), "route_long_name" character varying(255), "route_desc" character varying(255), "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "raw_stops" ("id" serial primary key, "stop_id" character varying(255), "stop_code" character varying(255), "stop_name" character varying(255), "stop_desc" character varying(255), "stop_lat" float, "stop_lon" float, "stop_url" character varying(255), "location_type" integer, "parent_station" integer, "tpis_name" character varying(255), "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.5ms)[0m  CREATE TABLE "raw_stop_times" ("id" serial primary key, "trip_id" integer, "arrival_time" character varying(255), "departure_time" character varying(255), "stop_id" character varying(255), "stop_sequence" integer, "stop_headsign" character varying(255), "pickup_type" integer, "drop_off_type" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "stops" ("id" serial primary key, "stop_id" character varying(255), "stop_name" character varying(255), "stop_lat" float, "stop_lon" float, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.5ms)[0m  CREATE TABLE "raw_trips" ("id" serial primary key, "route_id" character varying(255), "service_id" character varying(255), "trip_id" integer, "trip_headsign" character varying(255), "direction_id" integer, "block_id" integer, "shape_id" character varying(255), "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.2ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20140530060706')
