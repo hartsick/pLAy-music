@@ -1,4 +1,8 @@
 Play::Application.routes.draw do
+  resources :routes
+  resources :stops
+  resources :route_stops
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
