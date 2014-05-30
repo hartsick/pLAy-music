@@ -6,7 +6,7 @@ task :populate_metro_data => [:environment] do |t, args|
 	files_to_load = Hash.new
 	files_to_load["lib/assets/routes.csv"] = RawRoute
 	files_to_load["lib/assets/stops.csv"] = RawStop
-	files_to_load["lib/assets/stop_times.csv"] = TimeRawStop
+	files_to_load["lib/assets/stop_times.csv"] = RawStopTime
 	files_to_load["lib/assets/trips.csv"] = RawTrip
 
 	files_to_load.each do |filename, thisModel|
@@ -24,6 +24,8 @@ task :populate_metro_data => [:environment] do |t, args|
 			attributes = Hash[keys.zip values]
 			thisModel.create(attributes)
 		end
+
+		puts "Completed loading #{filename}..."
 	end
 end
 
@@ -78,7 +80,7 @@ task :associate_stops_to_route => [:environment, :aggregate_stop_data, :aggregat
 	all_routes.each do |r|
 		trips = RawTrip.where(route_id: r.route_id)
 
-		puts "processing #{r.route_short_name}: # #{counter} of #{all_routes.length}"
+		puts "Processing #{r.route_short_name}: # #{counter} of #{all_routes.length}"
 
 		# holder for winning trip (for route!)
 		route_trip = trips.first
@@ -99,7 +101,7 @@ task :associate_stops_to_route => [:environment, :aggregate_stop_data, :aggregat
 
 		end
 
-		puts "done processing route. moving to stop_times..."
+		puts "Done processing route. Moving to stop_times..."
 
 		# get all stops for given route
 		route_stops = RawStopTime.where(trip_id: route_trip.trip_id)
