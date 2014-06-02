@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140530060706) do
+ActiveRecord::Schema.define(version: 20140531000911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,46 @@ ActiveRecord::Schema.define(version: 20140530060706) do
     t.string   "route_color"
     t.string   "route_text_color"
     t.string   "route_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "raw_stop_times", force: true do |t|
+    t.integer  "trip_id"
+    t.string   "arrival_time"
+    t.string   "departure_time"
+    t.string   "stop_id"
+    t.integer  "stop_sequence"
+    t.string   "stop_headsign"
+    t.integer  "pickup_type"
+    t.integer  "drop_off_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "raw_stops", force: true do |t|
+    t.string   "stop_id"
+    t.string   "stop_code"
+    t.string   "stop_name"
+    t.string   "stop_desc"
+    t.float    "stop_lat"
+    t.float    "stop_lon"
+    t.string   "stop_url"
+    t.integer  "location_type"
+    t.integer  "parent_station"
+    t.string   "tpis_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "raw_trips", force: true do |t|
+    t.string   "route_id"
+    t.string   "service_id"
+    t.integer  "trip_id"
+    t.string   "trip_headsign"
+    t.integer  "direction_id"
+    t.integer  "block_id"
+    t.string   "shape_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -49,34 +89,6 @@ ActiveRecord::Schema.define(version: 20140530060706) do
     t.datetime "updated_at"
   end
 
-  create_table "raw_stops", force: true do |t|
-    t.string   "stop_id"
-    t.string   "stop_code"
-    t.string   "stop_name"
-    t.string   "stop_desc"
-    t.float    "stop_lat"
-    t.float    "stop_lon"
-    t.string   "stop_url"
-    t.integer  "location_type"
-    t.integer  "parent_station"
-    t.string   "tpis_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "raw_stop_times", force: true do |t|
-    t.integer  "trip_id"
-    t.string   "arrival_time"
-    t.string   "departure_time"
-    t.string   "stop_id"
-    t.integer  "stop_sequence"
-    t.string   "stop_headsign"
-    t.integer  "pickup_type"
-    t.integer  "drop_off_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "stops", force: true do |t|
     t.string   "stop_id"
     t.string   "stop_name"
@@ -86,15 +98,22 @@ ActiveRecord::Schema.define(version: 20140530060706) do
     t.datetime "updated_at"
   end
 
-  create_table "raw_trips", force: true do |t|
-    t.string   "route_id"
-    t.string   "service_id"
-    t.integer  "trip_id"
-    t.string   "trip_headsign"
-    t.integer  "direction_id"
-    t.integer  "block_id"
-    t.string   "shape_id"
+  create_table "users", force: true do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
 end
