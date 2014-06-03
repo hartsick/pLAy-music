@@ -56,6 +56,7 @@ describe Stop, :type => :model do
 		end
 
 	  it "should have unique stop_id" do
+			@stop = Stop.create!( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000 )
 			@stop_copy = Stop.new( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000 )
 	    expect(@stop_copy).to be_invalid
 	  end
