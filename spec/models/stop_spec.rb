@@ -22,6 +22,7 @@ describe Stop, :type => :model do
 		
 	  it { should have_many(:route_stops)}
 	  it { should have_many(:routes).through(:route_stops) }
+	  xit { should have_many(:songs) }
 
 	  it { should respond_to(:stop_id) }
 	  it { should respond_to(:stop_lat) }
@@ -30,6 +31,7 @@ describe Stop, :type => :model do
 	  it "should store related stops in .stops" do
 	  	expect(@stop.routes).to eq([@route1, @route2])
 	  end
+
 	end
 
 	describe "validation" do

@@ -1,8 +1,22 @@
 class SearchTerm < ActiveRecord::Base
+	validates_presence_of :lyrics
 
-	# set output type to json
+	# set constants for queries
 	def output
-		"json"
+		'json'
+	end
+
+	def reqtype
+		'default'
+	end
+
+	def searchtype
+		'track'
+	end
+
+	# temporarily cap number of results returned
+	def limit
+		'10'
 	end
 
 end
