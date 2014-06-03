@@ -1,0 +1,66 @@
+<nav class="top-bar" data-topbar data-options="is_hover: false">
+      <ul class="title-area">
+        <li class="name">
+          <h1><a><%= link_to 'pLAy', root_path %></a></h1>
+        </li>
+         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+    <section class="top-bar-section">
+            <!-- Right Nav Section -->
+            <ul class="right">
+              <% if !current_user %>
+
+              <!-- Shows a modal when user clicks Sing In -->
+              <li class="active"><a><%= link_to "Sign In", 'new_user_session_path', data: {:'reveal-id' => 'signinModal'} %></a>
+                
+                <div id="signinModal" class="reveal-modal" data-reveal>
+
+                  <!-- Users Sign In form -->
+                  <%= render partial: "users/sessions/new" %>
+                  <a class="close-reveal-modal">&#215;</a>
+                
+                </div>
+
+              </li>
+              
+              <!-- Shows a modal when user clicks Sing Up -->
+              <li class="active"><a><%= link_to "Sign Up", 'new_user_registration_path', data: {:'reveal-id' => 'signupModal'} %></a>
+                
+                <div id="signupModal" class="reveal-modal" data-reveal>
+
+                  <!-- Users Sign Up form -->
+                  <%= render partial: "users/registrations/new" %>
+                  <a class="close-reveal-modal">&#215;</a>
+                
+                </div>
+
+              </li>
+
+              <!-- Dropdown menu bar but may switch out to side navbar -->
+              <li class="has-dropdown">
+                
+                <a href="#">Routes</a>
+                
+                  <ul class="dropdown">
+                  
+                    <li><a href="#">Los Angeles</a></li>
+                  
+                  </ul>
+              
+              </li>
+              
+              <% else %>
+              
+              <!-- User Sign Out -->
+              <li class="active"><a><%= link_to 'Sign Out', destroy_user_session_path, method: :delete  %></a>
+
+              </li>
+              
+              <% end %>
+
+
+            </ul>
+    </section>
+    </nav>
