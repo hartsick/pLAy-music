@@ -15,6 +15,9 @@
 /log/*.log
 /tmp
 
+# Ignore secret key base / API keys
+/config/initializers/secret_token.rb
+
 # Ignore Metro CSV files
 /lib/assets/*.csv
 *.csv
