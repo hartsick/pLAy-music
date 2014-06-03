@@ -1,0 +1,39 @@
+
+
+
+
+<div id="map">
+  <% content_for :javascripts do %>
+    <script type='text/javascript'>
+
+      var handler = Gmaps.build('Google');
+
+        handler.buildMap({ provider: {zoom: 16, provider_key: "AIzaSyDJJPOQH24cT6ETa9IZacS7NENpUt2MKzA"}, internal: {id: 'map'}}, function(){
+          if(navigator.geolocation)
+            navigator.geolocation.getCurrentPosition(displayOnMap);
+
+          function displayOnMap(position){
+        var marker = handler.addMarker({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+        handler.map.centerOn(marker);
+      };
+
+          markers = handler.addMarkers([
+            <% @routes.each do |b| %>
+              <% b.stops.each do |s| %> 
+            {
+              lat: <%=s.stop_lat %>, // pulls in the latitude for the marker via ERB
+              lng: <%=s.stop_lon %>, // pulls in the longitude for the marker via ERB
+              infowindow: "<%= s.stop_name %>", // info window text (this is optional)
+            },
+              <% end %>
+            <% end %>
+          ]);
+          
+        
+      });
+    </script>
+  <% end %>
+</div>

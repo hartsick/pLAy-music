@@ -16,6 +16,88 @@ ActiveRecord::Schema.define(version: 20140531000911) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "raw_routes", force: true do |t|
+    t.string   "route_id"
+    t.string   "route_short_name"
+    t.string   "route_long_name"
+    t.string   "route_desc"
+    t.integer  "route_type"
+    t.string   "route_color"
+    t.string   "route_text_color"
+    t.string   "route_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "raw_stop_times", force: true do |t|
+    t.integer  "trip_id"
+    t.string   "arrival_time"
+    t.string   "departure_time"
+    t.string   "stop_id"
+    t.integer  "stop_sequence"
+    t.string   "stop_headsign"
+    t.integer  "pickup_type"
+    t.integer  "drop_off_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "raw_stops", force: true do |t|
+    t.string   "stop_id"
+    t.string   "stop_code"
+    t.string   "stop_name"
+    t.string   "stop_desc"
+    t.float    "stop_lat"
+    t.float    "stop_lon"
+    t.string   "stop_url"
+    t.integer  "location_type"
+    t.integer  "parent_station"
+    t.string   "tpis_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "raw_trips", force: true do |t|
+    t.string   "route_id"
+    t.string   "service_id"
+    t.integer  "trip_id"
+    t.string   "trip_headsign"
+    t.integer  "direction_id"
+    t.integer  "block_id"
+    t.string   "shape_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "route_stops", force: true do |t|
+    t.integer  "route_id"
+    t.integer  "stop_id"
+    t.integer  "stop_sequence"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "route_stops", ["route_id"], name: "index_route_stops_on_route_id", using: :btree
+  add_index "route_stops", ["stop_id"], name: "index_route_stops_on_stop_id", using: :btree
+
+  create_table "routes", force: true do |t|
+    t.string   "route_id"
+    t.string   "route_short_name"
+    t.string   "route_long_name"
+    t.string   "route_desc"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stops", force: true do |t|
+    t.string   "stop_id"
+    t.string   "stop_name"
+    t.float    "stop_lat"
+    t.float    "stop_lon"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
