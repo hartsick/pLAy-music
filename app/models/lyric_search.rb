@@ -1,5 +1,6 @@
-class SearchTerm < ActiveRecord::Base
+class LyricSearch < ActiveRecord::Base
 	validates_presence_of :lyrics
+	belongs_to :stop
 
 	# set constants for queries
 	def output

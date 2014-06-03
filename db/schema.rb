@@ -11,10 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603001142) do
+ActiveRecord::Schema.define(version: 20140603020737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "lyric_searches", force: true do |t|
+    t.string   "searchtype"
+    t.string   "artist"
+    t.string   "album"
+    t.string   "track"
+    t.string   "lyrics"
+    t.string   "meta"
+    t.string   "all"
+    t.string   "limit"
+    t.string   "output"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "place_searches", force: true do |t|
+    t.string   "key"
+    t.string   "location",      array: true
+    t.string   "radius"
+    t.string   "sensor"
+    t.string   "keyword"
+    t.string   "language"
+    t.string   "minprice"
+    t.string   "maxprice"
+    t.string   "name"
+    t.string   "rankby"
+    t.string   "types"
+    t.string   "zagatselected"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "raw_routes", force: true do |t|
     t.string   "route_id"
@@ -85,20 +116,6 @@ ActiveRecord::Schema.define(version: 20140603001142) do
     t.string   "route_short_name"
     t.string   "route_long_name"
     t.string   "route_desc"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "search_terms", force: true do |t|
-    t.string   "searchtype"
-    t.string   "artist"
-    t.string   "album"
-    t.string   "track"
-    t.string   "lyrics"
-    t.string   "meta"
-    t.string   "all"
-    t.string   "limit"
-    t.string   "output"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

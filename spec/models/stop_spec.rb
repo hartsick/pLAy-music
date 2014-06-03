@@ -12,7 +12,7 @@ describe Stop, :type => :model do
 		@route_stop2.route = @route2
 	end
 
-	describe "relation" do
+	describe "(relations)" do
 		before (:each) do
 			@stop = Stop.create!( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000 )
 
@@ -20,8 +20,9 @@ describe Stop, :type => :model do
 			@stop.route_stops << @route_stop2
 		end
 		
-	  it { should have_many(:route_stops)}
+	  it { should have_many(:route_stops) }
 	  it { should have_many(:routes).through(:route_stops) }
+	  it { should have_many(:place_searches) }
 	  xit { should have_many(:songs) }
 
 	  it { should respond_to(:stop_id) }
@@ -34,7 +35,7 @@ describe Stop, :type => :model do
 
 	end
 
-	describe "validation" do
+	describe "(validations)" do
 
 		it "should be invalid without stop_id" do
 			stop = Stop.new(stop_lat: 10, stop_lon: 10)

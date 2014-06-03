@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe SearchTerm do
+describe LyricSearch do
 	it "is invalid without a lyric" do
-		st = SearchTerm.new
+		st = LyricSearch.new
 		expect(st).to be_invalid
 	end
 
@@ -11,18 +11,18 @@ describe SearchTerm do
 	end
 
   describe 'preset fields:' do
-  	before { @st = SearchTerm.create!(lyrics: "do do do") }
+  	before { @ls = LyricSearch.create!(lyrics: "do do do") }
 
   	it "#output should return 'json'" do
-  		expect(@st.output).to eq('json')
+  		expect(@ls.output).to eq('json')
   	end
 
   	it "#reqtype should return 'default" do
-  		expect(@st.reqtype).to eq('default')
+  		expect(@ls.reqtype).to eq('default')
   	end
 
   	it "#searchtype should return 'track'" do
-  		expect(@st.searchtype).to eq('track')
+  		expect(@ls.searchtype).to eq('track')
   	end
   end
 end
