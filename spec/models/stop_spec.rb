@@ -10,6 +10,8 @@ describe Stop, :type => :model do
 
 		@route_stop1.route = @route1
 		@route_stop2.route = @route2
+
+		@place_search1 = PlaceSearch.create!()
 	end
 
 	describe "(relations)" do
@@ -18,6 +20,7 @@ describe Stop, :type => :model do
 
 			@stop.route_stops << @route_stop1
 			@stop.route_stops << @route_stop2
+			@stop.place_searches << @place_search1
 		end
 		
 	  it { should have_many(:route_stops) }

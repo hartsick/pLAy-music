@@ -11,7 +11,9 @@ describe LyricSearch do
 	end
 
   describe 'preset fields:' do
-  	before { @ls = LyricSearch.create!(lyrics: "do do do") }
+  	before (:each) do 
+      @ls = LyricSearch.create!(lyrics: "do do do") 
+    end
 
   	it "#output should return 'json'" do
   		expect(@ls.output).to eq('json')
