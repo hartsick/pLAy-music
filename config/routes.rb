@@ -1,6 +1,5 @@
 Play::Application.routes.draw do
   get "place_searches/index"
-  get "stops/:id/place_searches" => 'place_searches#show', as: :place_searches
   get "stops/" => 'stops#index', as: :stops
   get "stops/:id" => 'stops#show', as: :stop
   get "routes/" => 'routes#index', as: :routes

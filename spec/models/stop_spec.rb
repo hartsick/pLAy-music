@@ -11,21 +11,18 @@ describe Stop, :type => :model do
 		@route_stop1.route = @route1
 		@route_stop2.route = @route2
 
-		# @place_search1 = PlaceSearch.create!()
+		@stop = Stop.create!( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000, place_query: 'https://www.com')
 	end
 
 	describe "(relations)" do
 		before (:each) do
-			@stop = Stop.create!( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000, place_query: 'http://www.com')
 
 			@stop.route_stops << @route_stop1
 			@stop.route_stops << @route_stop2
-			# @stop.place_searches << @place_search1
 		end
 		
 	  it { should have_many(:route_stops) }
 	  it { should have_many(:routes).through(:route_stops) }
-	  it { should have_many(:place_searches) }
 	  xit { should have_many(:songs) }
 
 	  it { should respond_to(:stop_id) }
@@ -63,34 +60,41 @@ describe Stop, :type => :model do
 		end
 
 	  it "should have unique stop_id" do
-			@stop = Stop.create!( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000 )
-			@stop_copy = Stop.new( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000 )
+			@stop_copy = Stop.new( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000, place_query: 'https://www.com' )
 	    expect(@stop_copy).to be_invalid
 	  end
 	end
 
-	describe "#place_query" do
-		before (:each) do
-			@stop = Stop.create!( stop_id: '2', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000 )
-		end
+	describe "#generate_place_query" do
+		subject { @stop.generate_place_query }
 
 		it "should return a string" do
-			expect(@stop.place_query).to be_a(String)
+			expect(@stop.generate_place_query).to be_a(String)
 		end
 
 		xit "should save the string to place_query in stops table" do
 		end
 
-		it "should be invalid if not in proper URL format" do
+		xit "should be invalid if not in proper URL format" do
 			stop = Stop.new( stop_id: '3', stop_name: '', stop_lat: 100, stop_lon: 100, place_query: 'x')
 			expect(stop).to be_invalid
 		end
 
-		it "should contain stop_lat and stop_lon" do
-			expect(@stop.place_query).to contain(@stop.stop_lat)
-			expect(@stop.place_query).to contain(@stop.stop_lon)
-		end
+		it { should include(@stop.stop_lat.to_s) }
+		it { should include(@stop.stop_lon.to_s) }
 
+	end
+
+	describe "#init" do
+		before(:each) do
+			@placeless = Stop.new( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000 )
+			@placeless.init
+		end
+		subject { @placeless }
+		
+		it "should populate .place_query" do
+			expect(@placeless.place_query).not_to be_empty
+		end
 	end
 
 end
