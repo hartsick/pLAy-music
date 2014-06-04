@@ -1,2 +1,16 @@
 <h1>Routes#show</h1>
-<p>Find me in app/views/routes/show.html.erb</p>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>stop_id</th>
+		<th>stop_name</th>
+	</tr>
+	<% @route.stops.each do |stop| %>
+	<tr>
+		<td><%= stop.id %></td>
+		<td><%= stop.stop_id %></td>
+		<td><%= link_to stop.stop_name, stop_path(stop) %></td>
+	</tr>
+	<% end %>
+
+</table>

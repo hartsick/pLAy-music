@@ -1,2 +1,21 @@
 <h1>Routes#index</h1>
-<p>Find me in app/views/routes/index.html.erb</p>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>route_id</th>
+		<th>route_short_name</th>
+		<th>route_long_name</th>
+		<th>route_desc</th>
+	</tr>
+	<% @routes.each do |route| %>
+	<tr>
+		<td><%= route.id %></td>
+		<td><%= route.route_id %></td>
+		<td><%= link_to route.route_short_name, route_path(route) %></td>
+		<td><%= route.route_long_name %></td>
+		<td><%= route.route_desc %></td>
+	</tr>
+	<% end %>
+
+</table>
+

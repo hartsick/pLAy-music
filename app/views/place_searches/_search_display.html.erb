@@ -1,0 +1,35 @@
+<table>
+	<tr>
+		<th>ID</th>
+		<th>name</th>
+		<th>lat</th>
+		<th>lng</th>
+		<th>radius</th>
+		<th>sensor</th>
+		<th>types</th>
+		<th>stop_id(s)</th>
+	</tr>
+	<% @place_searches.each do |ps| %>
+	<tr>
+		<td><%= ps.id %></td>
+		<td><%= ps.name %></td>
+		<% ps.location.each do |loc| %>
+		<td>
+			<%= loc %>
+			</td>
+		<% end %>
+		<td><%= ps.radius %></td>
+		<td><%= ps.sensor %></td>
+		<td>
+			<% ps.types.each do |type| %>
+				<%= type %>
+			<% end %>
+		</td>
+		<td>
+			<% ps.stops.each do |stop_id| %>
+				<%= stop_id %>
+			<% end %>
+		</td>
+	</tr>
+	<% end %>
+</table>

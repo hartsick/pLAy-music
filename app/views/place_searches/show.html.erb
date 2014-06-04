@@ -1,0 +1,10 @@
+<h1>Place_searches#show</h1>
+<h3>Place_searches for individual stop</h3>
+
+<% if @place_searches.first %>
+	<%= render partial: 'search_display' %>
+<% else %>
+	<p>No place searches!</p>
+<% end %>
+
+<%= link_to "All Place Searches", place_searches_path %> | <%= link_to "All Stops", stops_path %>
