@@ -1,13 +1,11 @@
 Play::Application.routes.draw do
-  get "stops/index"
-  get "stops/show"
-  get "routes/index"
-  get "routes/show"
+  get "place_searches/index"
+  get "stops/" => 'stops#index', as: :stops
+  get "stops/:id" => 'stops#show', as: :stop
+  get "routes/" => 'routes#index', as: :routes
+  get "routes/:id" => 'routes#show', as: :route
   
   devise_for :users
-  resources :routes
-  resources :stops
-  resources :route_stops
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
