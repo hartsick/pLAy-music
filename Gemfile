@@ -35,6 +35,9 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+# Use HTTParty for API calls
+gem 'httparty'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
