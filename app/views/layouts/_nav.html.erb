@@ -44,9 +44,10 @@
                 <a href="#">Routes</a>
                 
                   <ul class="dropdown">
-                  
-                    <li><a href="#">Los Angeles</a></li>
-                  
+                    <% @routes.each do |r| %>
+                      <li> <%= r.friendly_name %> </li>
+                    <% end %>
+                
                   </ul>
               
               </li>

@@ -10,18 +10,23 @@ describe Stop, :type => :model do
 
 		@route_stop1.route = @route1
 		@route_stop2.route = @route2
+
+		@place_search1 = PlaceSearch.create!()
 	end
 
-	describe "relation" do
+	describe "(relations)" do
 		before (:each) do
 			@stop = Stop.create!( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000 )
 
 			@stop.route_stops << @route_stop1
 			@stop.route_stops << @route_stop2
+			@stop.place_searches << @place_search1
 		end
 		
-	  it { should have_many(:route_stops)}
+	  it { should have_many(:route_stops) }
 	  it { should have_many(:routes).through(:route_stops) }
+	  it { should have_many(:place_searches) }
+	  xit { should have_many(:songs) }
 
 	  it { should respond_to(:stop_id) }
 	  it { should respond_to(:stop_lat) }
@@ -30,9 +35,10 @@ describe Stop, :type => :model do
 	  it "should store related stops in .stops" do
 	  	expect(@stop.routes).to eq([@route1, @route2])
 	  end
+
 	end
 
-	describe "validation" do
+	describe "(validations)" do
 
 		it "should be invalid without stop_id" do
 			stop = Stop.new(stop_lat: 10, stop_lon: 10)
@@ -56,6 +62,7 @@ describe Stop, :type => :model do
 		end
 
 	  it "should have unique stop_id" do
+			@stop = Stop.create!( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000 )
 			@stop_copy = Stop.new( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000 )
 	    expect(@stop_copy).to be_invalid
 	  end

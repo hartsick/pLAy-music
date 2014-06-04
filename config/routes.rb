@@ -3,6 +3,7 @@ Play::Application.routes.draw do
   get "stops/show"
   get "routes/index"
   get "routes/show"
+  
   devise_for :users
   resources :routes
   resources :stops

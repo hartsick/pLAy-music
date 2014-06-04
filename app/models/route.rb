@@ -4,4 +4,8 @@ class Route < ActiveRecord::Base
 
 	validates_presence_of :route_id, :route_short_name
 	validates_uniqueness_of :route_id
+
+	def friendly_name
+		self.stops.first.stop_name + " -> " + self.stops.last.stop_name
+	end
 end

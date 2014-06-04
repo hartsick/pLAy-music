@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Play::Application.config.secret_key_base = 'd3ded03f369bd90a52b47fceda2d6f68333e6aea11a3e65615805fe5fcf0323f2e05f50f9980e9c4d2ac27f0d05b79a2fe36c653fad8bf0451a05f4efd0a5be5'
+Play::Application.config.secret_key_base = ENV['PLAY_KEY_BASE']
