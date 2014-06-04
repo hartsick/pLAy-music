@@ -123,17 +123,56 @@
     {}
 ];
 
+
+
+ var directionsDisplay = new google.maps.DirectionsRenderer();
+  var directionsService = new google.maps.DirectionsService();
+
+  function calcRoute() {
+
+    var origin = new google.maps.LatLng(<%= @routefirst_lat %>,<%= @routefirst_lng %>);
+    var destination = new google.maps.LatLng(<%= @routelast_lat %>,<%= @routelast_lng %>);
+
+    var request = {
+      origin: origin,
+      destination: destination,
+      travelMode: google.maps.TravelMode.TRANSIT
+    };
+    directionsService.route(request, function(result, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(result);
+      }
+    });
+  }
+
+  calcRoute();
+
+
+
+
+
+
+
+
+
       var handler = Gmaps.build('Google');
 
         handler.buildMap({ 
-          internal: {id: 'map'},
+          internal: {id: 'map'}},
+          function(){
+        directionsDisplay.setMap(handler.getMap());
+        });
+
+
+
           provider: {
           zoom: 16, 
-          provider_key: "AIzaSyDJJPOQH24cT6ETa9IZacS7NENpUt2MKzA",
+          provider_key: ENV['PLAY_GOOGLE_KEY'],
+
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           styles: mapStyle //Syncs to Snazzy Map style above
         },
-      }, 
+      // }, 
       function(){
           if(navigator.geolocation)
             navigator.geolocation.getCurrentPosition(displayOnMap);
@@ -157,8 +196,22 @@
               <% end %>
             <% end %>
           ]);
-          
-      });
+          });
+
+
+
+
+
+
+
     </script>
-  <% end %>
+<% end %> 
 </div>
+
+
+
+
+
+
+          
+      
