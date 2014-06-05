@@ -4,147 +4,21 @@
   <% content_for :javascripts do %>
     <script type='text/javascript'>
 
-      var mapStyle = [
-    {
-        "elementType": "labels.text",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#0099cc"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#00314e"
-            }
-        ]
-    },
-    {
-        "featureType": "transit.line",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "visibility": "on"
-            },
-            {
-                "color": "#f0f0f0"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape.man_made",
-        "stylers": [
-            {
-                "color": "#adbac9"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape.natural",
-        "stylers": [
-            {
-                "color": "#adb866"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "stylers": [
-            {
-                "color": "black"
-            }
-        ]
-    },
-    {
-        "featureType": "poi.park",
-        "stylers": [
-            {
-                "color": "#adb866"
-            }
-        ]
-    },
-    {
-        "featureType": "transit.station",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#ff8dd3"
-            }
-        ]
-    },
-    {
-        "featureType": "transit.station",
-        "stylers": [
-            {
-                "color": "#ff8dd3"
-            }
-        ]
-    },
-    {
-        "featureType": "transit.line",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "visibility": "on"
-            },
-            {
-                "color": "#808080"
-            }
-        ]
-    },
-    {}
-];
+      var mapStyle = [{"featureType":"landscape","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","stylers":[{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"saturation":-100},{"lightness":30},{"visibility":"on"}]},{"featureType":"road.local","stylers":[{"saturation":-100},{"lightness":40},{"visibility":"on"}]},{"featureType":"transit","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":-25},{"saturation":-100}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}];
 
 
 
   var directionsDisplay = new google.maps.DirectionsRenderer();
   var directionsService = new google.maps.DirectionsService();
-  var markerArray = [];
+  
 
   function calcRoute(startLat, startLng, endLat, endLng) {
 
-<<<<<<< HEAD
-    // First, remove any existing markers from the map.
-    for (var i = 0; i < markerArray.length; i++) {
-    markerArray[i].setMap(null);
-  }
-     // Now, clear the array itself.
-  markerArray = [];
-    
-    var origin = new google.maps.LatLng(<%= @routefirst_lat %>,<%= @routefirst_lng %>);
-    var destination = new google.maps.LatLng(<%= @routelast_lat %>,<%= @routelast_lng %>);
-=======
+    // var origin = new google.maps.LatLng(<%= @routefirst_lat %>,<%= @routefirst_lng %>);
+    // var destination = new google.maps.LatLng(<%= @routelast_lat %>,<%= @routelast_lng %>);
+
     var origin = new google.maps.LatLng(startLat,startLng);
     var destination = new google.maps.LatLng(endLat,endLng);
->>>>>>> master
 
     var request = {
       origin: origin,
@@ -158,21 +32,8 @@
     });
   }
 
+  calcRoute();
 
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
-
-
-
-      calcRoute();
-
->>>>>>> master
       var handler = Gmaps.build('Google');
       handler.buildMap({ 
           internal: {id: 'map'},
@@ -183,13 +44,7 @@
           styles: mapStyle //Syncs to Snazzy Map style above
         },
       },
-<<<<<<< HEAD
 
-=======
-      // function(){
-      //   directionsDisplay.setMap(handler.getMap());
-      //   }); 
->>>>>>> master
       function(){
          directionsDisplay.setMap(handler.getMap());
           if(navigator.geolocation)
@@ -203,20 +58,18 @@
             handler.map.centerOn(marker);
           };
 
-          markers = handler.addMarkers([
-            <% @routes.each do |b| %>
-              <% b.stops.each do |s| %> 
-            {
-              lat: <%=s.stop_lat %>, // pulls in the latitude for the marker via ERB
-              lng: <%=s.stop_lon %>, // pulls in the longitude for the marker via ERB
-              infowindow: "<%= s.stop_name %>", // info window text (this is optional)
-            },
-              <% end %>
-            <% end %>
-          ]);
-          });
-
-
+          // markers = handler.addMarkers([
+          //   <% @routes.each do |b| %>
+          //     <% b.stops.each do |s| %> 
+          //   {
+          //     lat: <%=s.stop_lat %>, // pulls in the latitude for the marker via ERB
+          //     lng: <%=s.stop_lon %>, // pulls in the longitude for the marker via ERB
+          //     infowindow: "<%= s.stop_name %>", // info window text (this is optional)
+          //   },
+          //     <% end %>
+          //   <% end %>
+          // ]);
+          
 
        $(document).ready(function() {
           $('.route-link').click(function() {
@@ -224,7 +77,42 @@
             })
        });
 
+      getRoutes();
 
+      function getRoutes() {
+
+        $.ajax ({
+          type: "GET",
+          dataType: "json",
+          url: "http://localhost:3000/routes.json"
+        }).done(function(data){
+          mapRoutes(data);
+        });
+      }
+
+      function mapRoutes(route_data) {
+
+          // for loop to place each marker with info from the JSON
+
+          var i, newMarker;
+
+          for (i=0; i < route_data.routes.length; i++) {
+
+            newMarker = new google.maps.Marker({
+              position: new google.maps.LatLng(route_data["routes"][i]["latitude"], route_data["routes"][i]["longitude"]),
+              map: map, 
+              title: (route_data["routes"][i]["title"])
+            });
+
+          };
+
+        }
+
+          var marker = new google.maps.Marker({
+          // position: myLatLng, // marker placed at the same location as our map center 
+          map: map, // make sure this matches the name of your map (ours is called "map")
+        });
+       });
 
     </script>
 <% end %> 
