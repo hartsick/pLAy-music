@@ -1,2 +1,29 @@
 <h1>Stops#index</h1>
-<p>Find me in app/views/stops/index.html.erb</p>
+
+<table>
+	<tr>
+		<th>ID</th>
+		<th>route_short_name</th>
+		<th>stop_id</th>
+		<th>stop_name</th>
+		<th>stop_lat</th>
+		<th>stop_lon</th>
+		<th>place searches</th>
+	</tr>
+	<% @stops.each do |stop| %>
+	<tr>
+		<td><%= stop.id %></td>
+		<td> 
+			<% stop.routes.each do |route| %>
+				<%= route.route_short_name %>,
+			<% end %>
+		</td>
+		<td><%= stop.stop_id %></td>
+		<td><%= link_to stop.stop_name, stop_path(stop)  %></td>
+		<td><%= stop.stop_lat %></td>
+		<td><%= stop.stop_lon %></td>
+		<td><%= link_to "Place Searches", place_searches_path(stop) %></td>
+	</tr>
+	<% end %>
+
+</table>

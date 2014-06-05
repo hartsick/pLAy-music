@@ -8,7 +8,71 @@ width: 100%;
 margin: 0 auto;
 }
 
+.dropdown {
+	max-height: 300px;
+    overflow-y: auto;
+    width: 200px;
+
+}
+
+
+
 .dropdown li {
 	background-color: white;
 	font-size: 20px;
+	font-weight: bold; 
+	float: left; 
+	width: 180px; 
+	background: #ccc;
+	position: relative; 
+
 }
+.dropdown  { 
+	position: relative; 
+	width: 100%; 
+}
+
+
+.dropdown:hover { 
+	color: #000; 
+}
+
+.dropdown li { 
+	display: block; 
+	padding: 20px 8px; 
+	color: #222; 
+	position: relative; 
+	z-index: 2000; 
+}
+
+.dropdown:hover { 
+	background: #F3D673; 
+	position: relative; 
+}
+
+.dropdown { 
+	display: none; 
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	width: 180px; 
+	z-index: 1000;
+	 }
+
+.dropdown li { 
+	font-weight: normal; 
+	background: #f6f6f6; 
+	color: #000; 
+	border-bottom: 1px solid #ccc;
+ }
+
+.dropdown li{ 
+	display: block;
+	 background: #eee !important; 
+}
+
+.dropdown li:hover	{ 
+	display: block;
+	background: #F3D673 !important; 
+} 
+
