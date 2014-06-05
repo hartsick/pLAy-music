@@ -17,68 +17,70 @@ namespace :hotspot do
   	valid_types = %w{neighborhood political point_of_interest intersection natural_feature airport}
 
   	# load all stops
-  	@stops = Stop.all[0..5]
+  	@stops = Stop.all
 
   	@stops.each do |stop|
-	  	# keep num of calls under API daily rate limit (1000)
-	  	# while call_counter < 2
+  		# rubyio - singleton model
+  		# gen model #run - make single model first time run, then refer to .first and give single attribute that's number
 
-	  	# place API call
-	  	response = HTTParty.get(stop.place_query)
+			# keep num of calls under API daily rate limit (1000)
+	  	while call_counter < 950
 
-	  	places = JSON.parse(response.body)
-	  	places = places["results"].to_a
+		  	# place API call
+		  	response = HTTParty.get(stop.place_query)
 
-	  	# for each place returned...
-	  	places.each do |place|
-  			# if result has requested type, save to database
-  			unless (place["types"] & valid_types).empty?
+		  	places = JSON.parse(response.body)
+		  	places = places["results"].to_a
 
-  				# look for existing hotspot with same gp_id
-  				hotspot = Hotspot.find_by(gp_id: place["id"])
 
-  				# if hotspot with same gp_id not in database, create new hotspot
-  				if hotspot == nil
+		  	# for each place returned...
+		  	places.each do |place|
+	  			# if result has requested type, save to database
+	  			unless (place["types"] & valid_types).empty?
 
-  					# convert types from array to string
-  					types_string = ""
-  					place["types"].each do |type|
-  						types_string += type
-  						types_string += " "
-  					end
+	  				# look for existing hotspot with same gp_id
+	  				hotspot = Hotspot.find_by(gp_id: place["id"])
 
-  					# create new Hotspot
-	  				hotspot_new = Hotspot.new(
-	  					hot_lat: place["geometry"]["location"]["lat"],
-	  					hot_lng: place["geometry"]["location"]["lng"],
-	  					name: place["name"],
-	  					gp_id: place["id"],
-	  					types: types_string,
-	  					source: "google_places"
-	  				)
+	  				# if hotspot with same gp_id not in database, create new hotspot
+	  				if hotspot == nil
 
-	  				# associate with stop
-	  				hotspot_new.stops << stop
-	  				hotspot_new.save
+	  					# convert types from array to string
+	  					types_string = ""
+	  					place["types"].each do |type|
+	  						types_string += type
+	  						types_string += " "
+	  					end
 
-  				# if already in database, associate stop to existing hotspot
-	  			else
-	  				hotspot.stops << stop
-	  				hotspot.save
-	  			end
-	  		end
-	  	end
+	  					# create new Hotspot
+		  				hotspot_new = Hotspot.new(
+		  					hot_lat: place["geometry"]["location"]["lat"],
+		  					hot_lng: place["geometry"]["location"]["lng"],
+		  					name: place["name"],
+		  					gp_id: place["id"],
+		  					types: types_string,
+		  					source: "google_places"
+		  				)
 
-	  	# sort through JSON
+		  				# associate with stop
+		  				hotspot_new.stops << stop
+		  				hotspot_new.save
 
-	  	# check gp_id for duplicate, if so, ditch
-	  	# if new entry, store relevant JSON entry as new Hotspot
+	  				# if already in database, associate stop to existing hotspot
+		  			else
+		  				hotspot.stops << stop
+		  				hotspot.save
+		  			end
+		  		end
 
-	  	# end
+			  end
 
-	  	# wait 24 hours, reset counter and start again
-	  	# sleep(1.day)
-	  	# call_counter = 0
+	  		# add one to API counter
+	  		call_counter += 1
+		  end
+
+	  	# wait 24 hours, reset counter and keep going
+	  	sleep(1.day)
+	  	call_counter = 0
 	  end
   end
 
