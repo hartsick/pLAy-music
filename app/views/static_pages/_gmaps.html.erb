@@ -128,10 +128,10 @@
  var directionsDisplay = new google.maps.DirectionsRenderer();
   var directionsService = new google.maps.DirectionsService();
 
-  function calcRoute() {
+  function calcRoute(startLat, startLng, endLat, endLng) {
 
-    var origin = new google.maps.LatLng(<%= @routefirst_lat %>,<%= @routefirst_lng %>);
-    var destination = new google.maps.LatLng(<%= @routelast_lat %>,<%= @routelast_lng %>);
+    var origin = new google.maps.LatLng(startLat,startLng);
+    var destination = new google.maps.LatLng(endLat,endLng);
 
     var request = {
       origin: origin,
@@ -145,7 +145,6 @@
     });
   }
 
-  calcRoute();
 
 
 
@@ -154,26 +153,25 @@
 
 
 
+
+
+      calcRoute();
 
       var handler = Gmaps.build('Google');
-
-        handler.buildMap({ 
-          internal: {id: 'map'}},
-          function(){
-        directionsDisplay.setMap(handler.getMap());
-        });
-
-
-
+      handler.buildMap({ 
+          internal: {id: 'map'},
           provider: {
           zoom: 16, 
-          provider_key: ENV['PLAY_GOOGLE_KEY'],
-
+          //provider_key: ENV['PLAY_GOOGLE_KEY'],
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           styles: mapStyle //Syncs to Snazzy Map style above
         },
-      // }, 
+      },
+      // function(){
+      //   directionsDisplay.setMap(handler.getMap());
+      //   }); 
       function(){
+         directionsDisplay.setMap(handler.getMap());
           if(navigator.geolocation)
             navigator.geolocation.getCurrentPosition(displayOnMap);
 
@@ -200,18 +198,14 @@
 
 
 
-
+       $(document).ready(function() {
+          $('.route-link').click(function() {
+            calcRoute($(this).data('start-lat'), $(this).data('start-lon'), $(this).data('end-lat'), $(this).data('end-lon'));
+            })
+       });
 
 
 
     </script>
 <% end %> 
 </div>
-
-
-
-
-
-
-          
-      
