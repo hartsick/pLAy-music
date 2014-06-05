@@ -23,7 +23,7 @@ namespace :hotspot do
   	valid_types = %w{neighborhood political point_of_interest intersection natural_feature airport}
 
   	# keep num of calls under API daily rate limit (1000)
-  	@stops = Stop.where(is_processed: false).limit(90)
+  	@stops = Stop.where(is_processed: false).limit(1000)
 
   	@stops.each do |stop|
 

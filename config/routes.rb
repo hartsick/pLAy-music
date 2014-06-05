@@ -1,9 +1,13 @@
 Play::Application.routes.draw do
+  get "hotspots/index"
+  get "hotspots/show"
   get "place_searches/index"
   get "stops/" => 'stops#index', as: :stops
   get "stops/:id" => 'stops#show', as: :stop
   get "routes/" => 'routes#index', as: :routes
   get "routes/:id" => 'routes#show', as: :route
+  get "stops/:id/hotspots" => 'hotspots#show', as: :hotspot
+  get "hotspots/" => 'hotspots#index', as: :hotspots
   
   devise_for :users
   
