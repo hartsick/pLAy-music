@@ -1,18 +1,9 @@
 require 'json'
 
-namespace :hotspot do
+namespace :hotspots do
 
-	desc "Initalize Hotspot Counter"
-	task :init_counter => [:environment] do
-		@stops_index = HotspotCounter.new
-  	@stops_index.reset_index
-
-  	puts "HotspotCounter reset to: " + @stops_index.index.to_s
-	end
-
-	desc "Clear Hotspots from db"
-	task :clear => [:environment, :init_counter] do
-		# delete all hotspots
+	desc "Delete all Hotspots from database"
+	task :clear => [:environment] do
 		Hotspot.delete_all
 	end
 
@@ -23,7 +14,7 @@ namespace :hotspot do
   	valid_types = %w{neighborhood political point_of_interest intersection natural_feature airport}
 
   	# keep num of calls under API daily rate limit (1000)
-  	@stops = Stop.where(is_processed: false).limit(1000)
+  	@stops = Stop.where(has_generated_hotspot: false).limit(1000)
 
   	@stops.each do |stop|
 
@@ -75,7 +66,7 @@ namespace :hotspot do
 		  end
 
   		# flag stop as processed
-  		stop.is_processed = true
+  		stop.has_generated_hotspot = true
   		stop.save
 
 	  end
