@@ -39,18 +39,24 @@
               </li>
 
               <!-- Dropdown menu bar but may switch out to side navbar -->
+              
               <li class="has-dropdown">
                 
                 <a href="#">Routes</a>
                 
                   <ul class="dropdown">
                     <% @routes.each do |r| %>
-                      <li> <%= r.friendly_name %> </li>
+                      <li class="route-link" data-start-lat="<%= r.stops.first.stop_lat %>"
+                        data-start-lon = "<%= r.stops.first.stop_lon %>"
+                        data-end-lat = "<%= r.stops.last.stop_lat %>"
+                        data-end-lon = " <%= r.stops.last.stop_lon%>">
+                        <%= r.friendly_name %> </li>
                     <% end %>
                 
                   </ul>
               
               </li>
+
               
               <% else %>
               
