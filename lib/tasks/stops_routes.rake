@@ -1,5 +1,5 @@
 namespace :metro_data do 
-	# store csv info into psql
+
 	desc "Import raw LA Metro data from CSV to database"
 	task :add_raw => [:environment] do 
 		require 'csv'

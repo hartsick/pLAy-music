@@ -11,10 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604220756) do
+ActiveRecord::Schema.define(version: 20140604234936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "hotspots", force: true do |t|
+    t.float    "hot_lat"
+    t.float    "hot_lng"
+    t.string   "name"
+    t.string   "gp_id"
+    t.string   "types"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "source"
+  end
+
+  create_table "hotspots_stops", id: false, force: true do |t|
+    t.integer "stop_id",    null: false
+    t.integer "hotspot_id", null: false
+  end
+
+  add_index "hotspots_stops", ["hotspot_id", "stop_id"], name: "index_hotspots_stops_on_hotspot_id_and_stop_id", using: :btree
+  add_index "hotspots_stops", ["stop_id", "hotspot_id"], name: "index_hotspots_stops_on_stop_id_and_hotspot_id", using: :btree
 
   create_table "lyric_searches", force: true do |t|
     t.string   "searchtype"

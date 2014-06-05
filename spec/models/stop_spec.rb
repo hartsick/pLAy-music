@@ -23,6 +23,7 @@ describe Stop, :type => :model do
 		
 	  it { should have_many(:route_stops) }
 	  it { should have_many(:routes).through(:route_stops) }
+	  it { should have_and_belong_to_many(:hotspots) }
 	  xit { should have_many(:songs) }
 
 	  it { should respond_to(:stop_id) }
