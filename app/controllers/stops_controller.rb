@@ -6,7 +6,7 @@ class StopsController < ApplicationController
   end
 
   def show
-  end
+   end
 
   protected
   def set_stop
