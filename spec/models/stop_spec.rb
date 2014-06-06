@@ -14,7 +14,7 @@ describe Stop, :type => :model do
 		@stop = Stop.create!( stop_id: '1', stop_name: 'test stop', stop_lat: 50.000, stop_lon: -100.000, place_query: 'https://www.com')
 	end
 
-	describe "(relations)" do
+	describe "relations:" do
 		before (:each) do
 
 			@stop.route_stops << @route_stop1
@@ -24,12 +24,17 @@ describe Stop, :type => :model do
 	  it { should have_many(:route_stops) }
 	  it { should have_many(:routes).through(:route_stops) }
 	  it { should have_and_belong_to_many(:hotspots) }
-	  xit { should have_many(:songs) }
+	  xit { should have_and_belong_to_many(:songs) }
 
 	  it { should respond_to(:stop_id) }
 	  it { should respond_to(:stop_lat) }
 	  it { should respond_to(:stop_lon) }
 	  it { should respond_to(:place_query) }
+	  it { should respond_to(:has_generated_hotspot) }
+
+	  it ".has_generated_hotspot should default to false" do
+	  	expect(@stop.has_generated_hotspot).to eq(false)
+	  end
 
 	  it "should store related stops in .stops" do
 	  	expect(@stop.routes).to eq([@route1, @route2])
@@ -37,7 +42,7 @@ describe Stop, :type => :model do
 
 	end
 
-	describe "(validations)" do
+	describe "validations:" do
 
 		it "should be invalid without stop_id" do
 			stop = Stop.new(stop_lat: 10, stop_lon: 10)

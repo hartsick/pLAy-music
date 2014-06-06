@@ -1,0 +1,27 @@
+<h1>Songs#index</h1>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>lfid</th>
+			<th>amg</th>
+			<th>song title</th>
+			<th>artist name</th>
+			<th>context</th>
+			<th>hotspots</th>
+		</tr>
+		<% @songs.each do |song| %>
+		<tr>
+			<td><%= song.id %></td>
+			<td><%= song.lfid %></td>
+			<td><%= song.amg %></td>
+			<td><%= song.title %></td>
+			<td><%= song.artist_name %></td>
+			<td><%= song.context %></td>
+			<td>
+				<% song.hotspots.each do |hs| %>
+					<%= link_to hs.name, hotspot_path(hs) %>
+				<% end %>
+			</td>			
+		</tr>
+		<% end %>
+	</table>

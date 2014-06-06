@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604234936) do
+ActiveRecord::Schema.define(version: 20140605233619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "hotspot_counters", force: true do |t|
+    t.integer  "index"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "hotspots", force: true do |t|
     t.float    "hot_lat"
@@ -25,7 +31,16 @@ ActiveRecord::Schema.define(version: 20140604234936) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "source"
+    t.boolean  "has_generated_song", default: false
   end
+
+  create_table "hotspots_songs", id: false, force: true do |t|
+    t.integer "hotspot_id", null: false
+    t.integer "song_id",    null: false
+  end
+
+  add_index "hotspots_songs", ["hotspot_id", "song_id"], name: "index_hotspots_songs_on_hotspot_id_and_song_id", using: :btree
+  add_index "hotspots_songs", ["song_id", "hotspot_id"], name: "index_hotspots_songs_on_song_id_and_hotspot_id", using: :btree
 
   create_table "hotspots_stops", id: false, force: true do |t|
     t.integer "stop_id",    null: false
@@ -122,6 +137,22 @@ ActiveRecord::Schema.define(version: 20140604234936) do
     t.datetime "updated_at"
   end
 
+  create_table "songs", force: true do |t|
+    t.string   "lfid"
+    t.integer  "amg"
+    t.boolean  "instrumental"
+    t.boolean  "viewable"
+    t.boolean  "has_lrc"
+    t.string   "title"
+    t.string   "artist_name"
+    t.text     "snippet"
+    t.text     "context"
+    t.datetime "last_update"
+    t.float    "score"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "stops", force: true do |t|
     t.string   "stop_id"
     t.string   "stop_name"
@@ -130,6 +161,7 @@ ActiveRecord::Schema.define(version: 20140604234936) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "place_query"
+    t.boolean  "has_generated_hotspot", default: false
   end
 
   create_table "users", force: true do |t|
