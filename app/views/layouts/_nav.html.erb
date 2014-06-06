@@ -4,7 +4,46 @@
           <h1><a><%= link_to 'pLAy', root_path %></a></h1>
         </li>
          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+        
+
+              <!-- Dropdown menu bar but may switch out to side navbar -->
+
+              <div class="off-canvas-wrap" data-offcanvas>
+              <div class="inner-wrap"> 
+                
+                <a class="left-off-canvas-toggle">Los Angeles</a>
+                
+                <aside class="left-off-canvas-menu">
+                  <ul>
+
+                    <li class="canvastitle"><a href="#">Transit Routes</a></li>
+                    
+                    <% @routes.each do |r| %>
+
+                      <li class="route-link" data-start-lat="<%= r.route_stops.first.stop.stop_lat %>"
+                        data-start-lon = "<%= r.route_stops.first.stop.stop_lon %>"
+                        data-end-lat = "<%= r.route_stops.last.stop.stop_lat %>"
+                        data-end-lon = " <%= r.route_stops.last.stop.stop_lon%>"
+                        data-name = "<%= r.route_short_name %>"
+                        data-id = "<%= r.id %>"
+                      >
+                        
+                        <%= r.route_short_name %><%= r.friendly_name %>
+                      
+                      </li>
+                    
+                    <% end %>
+                
+                  </ul>
+              
+              </li>
+
+              </aside>
+            </div>
+            </div>
+            <a class="exit-off-canvas"></a> 
+
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
       </ul>
 
     <section class="top-bar-section">
@@ -37,32 +76,6 @@
                 </div>
 
               </li>
-
-              <!-- Dropdown menu bar but may switch out to side navbar -->
-              
-              <li class="has-dropdown">
-                
-                <a href="#">Routes</a>
-                
-                  <ul class="dropdown">
-                    <% @routes.each do |r| %>
-
-                      <li class="route-link" data-start-lat="<%= r.route_stops.first.stop.stop_lat %>"
-                        data-start-lon = "<%= r.route_stops.first.stop.stop_lon %>"
-                        data-end-lat = "<%= r.route_stops.last.stop.stop_lat %>"
-                        data-end-lon = " <%= r.route_stops.last.stop.stop_lon%>"
-                        data-name = "<%= r.route_short_name %>"
-                        data-id = "<%= r.id %>"
-                        >
-
-                        <%= r.route_short_name %><%= r.friendly_name %>
-                      </li>
-                    <% end %>
-                
-                  </ul>
-              
-              </li>
-
               
               <% else %>
               
