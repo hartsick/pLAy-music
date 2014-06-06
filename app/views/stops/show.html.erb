@@ -21,7 +21,7 @@
 		<td><%= @stop.stop_name %></td>
 		<td><%= @stop.stop_lat %></td>
 		<td><%= @stop.stop_lon %></td>
-		<td><%= @stop.place_query %></td>
+		<td><%= link_to @stop.place_query, hotspot_path(@stop) %></td>
 	</tr>
 
 </table>
