@@ -6,6 +6,6 @@ class Route < ActiveRecord::Base
 	validates_uniqueness_of :route_id
 
 	def friendly_name
-		self.stops.first.stop_name + " -> " + self.stops.last.stop_name
+		self.route_stops.first.stop.stop_name + " -> " + self.route_stops.last.stop.stop_name #questionable order
 	end
 end

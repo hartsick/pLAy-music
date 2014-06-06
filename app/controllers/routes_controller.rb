@@ -4,6 +4,10 @@ class RoutesController < ApplicationController
   def index
   	@routes = Route.all
     respond_with @routes
+    # @hash = Route.build_markers(@routes) do |route, marker|
+    # marker.lat route.latitude
+    # marker.lon route.longitude
+  end
   end
 
   def show

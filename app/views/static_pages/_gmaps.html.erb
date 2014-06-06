@@ -23,8 +23,11 @@
     var request = {
       origin: origin,
       destination: destination,
-      travelMode: google.maps.TravelMode.TRANSIT
+      travelMode: google.maps.TravelMode.DRIVING
     };
+
+    // Route the directions and pass the response to a
+    // function to create markers for each step.
     directionsService.route(request, function(result, status) {
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(result);
@@ -58,62 +61,34 @@
             handler.map.centerOn(marker);
           };
 
-          // markers = handler.addMarkers([
-          //   <% @routes.each do |b| %>
-          //     <% b.stops.each do |s| %> 
-          //   {
-          //     lat: <%=s.stop_lat %>, // pulls in the latitude for the marker via ERB
-          //     lng: <%=s.stop_lon %>, // pulls in the longitude for the marker via ERB
-          //     infowindow: "<%= s.stop_name %>", // info window text (this is optional)
-          //   },
-          //     <% end %>
-          //   <% end %>
-          // ]);
-          
 
-       $(document).ready(function() {
+          var short_name = '';
+
           $('.route-link').click(function() {
             calcRoute($(this).data('start-lat'), $(this).data('start-lon'), $(this).data('end-lat'), $(this).data('end-lon'));
-            })
-       });
 
-      getRoutes();
+            var routeLink = $(this);
+            console.log($(this));
 
-      function getRoutes() {
+            short_name = $(this).data('name');
+            //var friendlyName = $(this).data('name');
+            //printRoutes(friendlyName);
 
-        $.ajax ({
-          type: "GET",
-          dataType: "json",
-          url: "http://localhost:3000/routes.json"
-        }).done(function(data){
-          mapRoutes(data);
-        });
-      }
+            markers = handler.addMarkers([
+              <% Route.find_by_route_short_name("4") do |b| %>
+                <% b.stops.each do |s| %> 
+              {
+                lat: <%=s.stop_lat %>, // pulls in the latitude for the marker via ERB
+                lng: <%=s.stop_lon %>, // pulls in the longitude for the marker via ERB
+                infowindow: "<%= s.stop_name %>", // info window text (this is optional)
+              },
+                <% end %>
+              <% end %>
+            ]);
+          });
 
-      function mapRoutes(route_data) {
 
-          // for loop to place each marker with info from the JSON
-
-          var i, newMarker;
-
-          for (i=0; i < route_data.routes.length; i++) {
-
-            newMarker = new google.maps.Marker({
-              position: new google.maps.LatLng(route_data["routes"][i]["latitude"], route_data["routes"][i]["longitude"]),
-              map: map, 
-              title: (route_data["routes"][i]["title"])
-            });
-
-          };
-
-        }
-
-          var marker = new google.maps.Marker({
-          // position: myLatLng, // marker placed at the same location as our map center 
-          map: map, // make sure this matches the name of your map (ours is called "map")
-        });
-       });
-
+      });
     </script>
 <% end %> 
 </div>
