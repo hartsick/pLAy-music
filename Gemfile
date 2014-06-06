@@ -42,7 +42,7 @@ gem 'httparty'
 gem 'google_places'
 
 # Rdio for streaming service
-gem 'multi_json', '~> 1.0.3'
+gem 'multi_json'
 gem 'rdio_api'
 
 # Use ActiveModel has_secure_password
