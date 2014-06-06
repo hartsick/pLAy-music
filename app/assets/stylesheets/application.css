@@ -13,4 +13,9 @@
 
  *= require_tree .
  */
-
+#map img { 
+  max-width: none;
+}
+#map label { 
+  width: auto; display:inline; 
+} 
