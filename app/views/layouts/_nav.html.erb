@@ -46,11 +46,17 @@
                 
                   <ul class="dropdown">
                     <% @routes.each do |r| %>
-                      <li class="route-link" data-start-lat="<%= r.stops.first.stop_lat %>"
-                        data-start-lon = "<%= r.stops.first.stop_lon %>"
-                        data-end-lat = "<%= r.stops.last.stop_lat %>"
-                        data-end-lon = " <%= r.stops.last.stop_lon%>">
-                        <%= r.friendly_name %> </li>
+
+                      <li class="route-link" data-start-lat="<%= r.route_stops.first.stop.stop_lat %>"
+                        data-start-lon = "<%= r.route_stops.first.stop.stop_lon %>"
+                        data-end-lat = "<%= r.route_stops.last.stop.stop_lat %>"
+                        data-end-lon = " <%= r.route_stops.last.stop.stop_lon%>"
+                        data-name = "<%= r.route_short_name %>"
+                        data-id = "<%= r.id %>"
+                        >
+
+                        <%= r.route_short_name %><%= r.friendly_name %>
+                      </li>
                     <% end %>
                 
                   </ul>
