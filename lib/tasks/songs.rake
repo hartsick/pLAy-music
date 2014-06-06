@@ -17,7 +17,7 @@ namespace :songs do
   desc "Create Songs from running Hotspots through LyricFind Search API"
   task load: :environment do
    	# keep num of calls under API daily rate limit (1000)
-   	@hotspots = Hotspot.where(has_generated_song: false).limit(100)
+   	@hotspots = Hotspot.where(has_generated_song: false).limit(200)
 
   	@hotspots.each do |hotspot|
   		# build API request

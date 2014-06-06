@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140605205246) do
+ActiveRecord::Schema.define(version: 20140605233619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,8 +145,8 @@ ActiveRecord::Schema.define(version: 20140605205246) do
     t.boolean  "has_lrc"
     t.string   "title"
     t.string   "artist_name"
-    t.string   "snippet"
-    t.string   "context"
+    t.text     "snippet"
+    t.text     "context"
     t.datetime "last_update"
     t.float    "score"
     t.datetime "created_at"

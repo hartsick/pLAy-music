@@ -1,4 +1,6 @@
 Play::Application.routes.draw do
+  get "songs/index"
+  get "songs/show"
   get "hotspots/index"
   get "hotspots/show"
   get "place_searches/index"
@@ -8,6 +10,7 @@ Play::Application.routes.draw do
   get "routes/:id" => 'routes#show', as: :route
   get "stops/:id/hotspots" => 'hotspots#show', as: :hotspot
   get "hotspots/" => 'hotspots#index', as: :hotspots
+  get "songs/" => 'songs#index', as: :songs
   
   devise_for :users
   
