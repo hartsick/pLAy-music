@@ -1,25 +1,19 @@
-<h1>Stops#index</h1>
-
+<h1>Hotspots#Show</h1>
+<h3>Stops for Hotspot: <%= @hotspot.name %></h3>
 <table>
 	<tr>
 		<th>ID</th>
-		<th>route_short_name</th>
 		<th>stop_id</th>
 		<th>stop_name</th>
 		<th>stop_lat</th>
 		<th>stop_lon</th>
-		<th>place searches</th>
+		<th>place query</th>
 	</tr>
 	<% @stops.each do |stop| %>
 	<tr>
 		<td><%= stop.id %></td>
-		<td> 
-			<% stop.routes.each do |route| %>
-				<%= route.route_short_name %>,
-			<% end %>
-		</td>
 		<td><%= stop.stop_id %></td>
-		<td><%= link_to stop.stop_name, stop_path(stop)  %></td>
+		<td><%= stop.stop_name %></td>
 		<td><%= stop.stop_lat %></td>
 		<td><%= stop.stop_lon %></td>
 		<td><%= link_to stop.place_query, hotspot_path(stop) %></td>
@@ -27,3 +21,5 @@
 	<% end %>
 
 </table>
+
+<%= link_to "Back", :back %> | <%= link_to "All Stops", stops_path %>

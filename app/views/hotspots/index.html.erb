@@ -1,0 +1,32 @@
+<h1>Hotspots Index</h1>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>name</th>
+		<th>hot_lat</th>
+		<th>hot_lng</th>
+		<th>gp_id</th>
+		<th>types</th>
+		<th>source</th>
+		<th>stops</th>
+	</tr>
+	<% @hotspots.each do |hs| %>
+	<tr>
+		<td><%= hs.id %></td>
+		<td><%= link_to hs.name, hotspot_path(hs) %></td>
+		<td><%= hs.hot_lat %></td>
+		<td><%= hs.hot_lng %></td>
+		<td><%= hs.gp_id %></td>
+		<td><%= hs.types %></td>
+		<td><%= hs.source %></td>
+		<td>
+			<% hs.stops.each do |stop| %>
+				<%= link_to stop.stop_name, stop_path(stop) %>,
+			<% end %>
+		</td>
+	</tr>
+	<% end %>
+
+</table>
+
+<%= link_to "Back", :back %> | <%= link_to "All Stops", stops_path %>
