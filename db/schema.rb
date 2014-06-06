@@ -11,10 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603190017) do
+ActiveRecord::Schema.define(version: 20140604234936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "hotspots", force: true do |t|
+    t.float    "hot_lat"
+    t.float    "hot_lng"
+    t.string   "name"
+    t.string   "gp_id"
+    t.string   "types"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "source"
+  end
+
+  create_table "hotspots_stops", id: false, force: true do |t|
+    t.integer "stop_id",    null: false
+    t.integer "hotspot_id", null: false
+  end
+
+  add_index "hotspots_stops", ["hotspot_id", "stop_id"], name: "index_hotspots_stops_on_hotspot_id_and_stop_id", using: :btree
+  add_index "hotspots_stops", ["stop_id", "hotspot_id"], name: "index_hotspots_stops_on_stop_id_and_hotspot_id", using: :btree
 
   create_table "lyric_searches", force: true do |t|
     t.string   "searchtype"
@@ -28,24 +47,6 @@ ActiveRecord::Schema.define(version: 20140603190017) do
     t.string   "output"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "place_searches", force: true do |t|
-    t.string   "key"
-    t.string   "location",      array: true
-    t.string   "radius"
-    t.string   "sensor"
-    t.string   "keyword"
-    t.string   "language"
-    t.string   "minprice"
-    t.string   "maxprice"
-    t.string   "name"
-    t.string   "rankby"
-    t.string   "types"
-    t.string   "zagatselected"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "stop_id"
   end
 
   create_table "raw_routes", force: true do |t|
@@ -128,6 +129,7 @@ ActiveRecord::Schema.define(version: 20140603190017) do
     t.float    "stop_lon"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "place_query"
   end
 
   create_table "users", force: true do |t|

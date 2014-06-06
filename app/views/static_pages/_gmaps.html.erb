@@ -162,6 +162,15 @@
           internal: {id: 'map'},
           provider: {
           zoom: 16, 
+          polylineOptions:{strokeColor: "#2249a3"},
+          panControl:false,
+          zoomControl:false,
+          streetViewControl:false,
+          scrollwheel: false,
+          navigationControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          draggable: false,
           //provider_key: ENV['PLAY_GOOGLE_KEY'],
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           styles: mapStyle //Syncs to Snazzy Map style above
@@ -183,23 +192,23 @@
             handler.map.centerOn(marker);
           };
 
-          markers = handler.addMarkers([
-            <% @routes.each do |b| %>
-              <% b.stops.each do |s| %> 
-            {
-              lat: <%=s.stop_lat %>, // pulls in the latitude for the marker via ERB
-              lng: <%=s.stop_lon %>, // pulls in the longitude for the marker via ERB
-              infowindow: "<%= s.stop_name %>", // info window text (this is optional)
-            },
-              <% end %>
-            <% end %>
-          ]);
+          // markers = handler.addMarkers([
+          //   <% @routes.each do |b| %>
+          //     <% b.stops.each do |s| %> 
+          //   {
+          //     lat: <%=s.stop_lat %>, // pulls in the latitude for the marker via ERB
+          //     lng: <%=s.stop_lon %>, // pulls in the longitude for the marker via ERB
+          //     infowindow: "<%= s.stop_name %>", // info window text (this is optional)
+          //   },
+          //     <% end %>
+          //   <% end %>
+          // ]);
           });
 
 
 
        $(document).ready(function() {
-          $('.route-link').click(function() {
+          $('.left-off-canvas-menu li').click(function() {
             calcRoute($(this).data('start-lat'), $(this).data('start-lon'), $(this).data('end-lat'), $(this).data('end-lon'));
             })
        });

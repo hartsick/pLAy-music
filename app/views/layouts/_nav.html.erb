@@ -4,8 +4,57 @@
           <h1><a><%= link_to 'pLAy', root_path %></a></h1>
         </li>
          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-      </ul>
+        
+
+        <!-- <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul> -->
+
+
+
+
+
+
+      <!-- Dropdown menu bar but may switch out to side navbar -->
+              
+    <div class="off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
+
+    <a class="left-off-canvas-toggle">Los Angeles</a>
+
+    <!-- Off Canvas Menu -->
+    <aside class="left-off-canvas-menu">
+        <!-- whatever you want goes here -->
+        <ul>
+          <li class="canvastitle"><a href="#">Transit Routes</a></li>
+        
+                
+                 
+                    <% @routes.each do |r| %>
+                      <li class="route-link" data-start-lat="<%= r.stops.first.stop_lat %>"
+                        data-start-lon = "<%= r.stops.first.stop_lon %>"
+                        data-end-lat = "<%= r.stops.last.stop_lat %>"
+                        data-end-lon = " <%= r.stops.last.stop_lon%>">
+                        <strong><%= r.id%></strong> </br>
+                         <%= r.friendly_name %> <li>
+                    <% end %>
+
+                 
+                  
+
+
+                    </ul>
+                
+                   <!-- <a class="exit-off-canvas"></a> -->
+
+  </div>
+</div>
+<a class="exit-off-canvas"></a>
+
+
+
+
+
+
 
     <section class="top-bar-section">
             <!-- Right Nav Section -->
@@ -36,11 +85,12 @@
                 
                 </div>
 
+
               </li>
 
-              <!-- Dropdown menu bar but may switch out to side navbar -->
+               <!-- Dropdown menu bar but may switch out to side navbar -->
               
-              <li class="has-dropdown">
+              <!--  <li class="has-dropdown">
                 
                 <a href="#">Routes</a>
                 
@@ -55,19 +105,19 @@
                 
                   </ul>
               
-              </li>
+              </li>  -->
 
               
-              <% else %>
+           <% else %> 
               
               <!-- User Sign Out -->
-              <li class="active"><a><%= link_to 'Sign Out', destroy_user_session_path, method: :delete  %></a>
+          <li class="active"><a><%= link_to 'Sign Out', destroy_user_session_path, method: :delete  %></a>
 
               </li>
               
-              <% end %>
+              <% end %>  
 
 
-            </ul>
+            </ul>  -->
     </section>
     </nav>
