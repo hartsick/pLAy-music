@@ -38,7 +38,16 @@
 
               </li>
 
-              <!-- Dropdown menu bar but may switch out to side navbar -->
+              
+              <% else %>
+              
+              <!-- User Sign Out -->
+              <li class="active"><a><%= link_to 'Sign Out', destroy_user_session_path, method: :delete  %></a>
+
+              </li>
+              
+              <% end %>
+             <!-- Dropdown menu bar but may switch out to side navbar -->
               
               <li class="has-dropdown">
                 
@@ -62,17 +71,6 @@
                   </ul>
               
               </li>
-
-              
-              <% else %>
-              
-              <!-- User Sign Out -->
-              <li class="active"><a><%= link_to 'Sign Out', destroy_user_session_path, method: :delete  %></a>
-
-              </li>
-              
-              <% end %>
-
 
             </ul>
     </section>
