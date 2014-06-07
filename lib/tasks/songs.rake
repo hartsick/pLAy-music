@@ -17,12 +17,11 @@ namespace :songs do
   desc "Create Songs from running Hotspots through LyricFind Search API"
   task load: :environment do
    	# keep num of calls under API daily rate limit (1000)
-   	@hotspots = Hotspot.where(has_generated_song: false).limit(200)
+   	@hotspots = Hotspot.where(has_generated_song: false).limit(5)
 
   	@hotspots.each do |hotspot|
   		# build API request
 			base_uri = "http://test.lyricfind.com/api_service/search.do?"
-			search_uri = ""
 
 			# set required fields
 			search_fields = Hash.new
@@ -40,7 +39,7 @@ namespace :songs do
 			# assemble final url for API call 
 			url = base_uri + search_uri
 
-			puts "Calling " + hotspot.name + " at: " + url
+			puts url
 
 	  	# place API call
 	  	response = HTTParty.get(url)
@@ -99,14 +98,22 @@ namespace :songs do
 	  					score: song['score']
 	  				)
 
-	  				# associate hotspot with song
+	  				# associate hotspot & stops with song
 	  				song_new.hotspots << hotspot
+	  				hotspot.stops.each do |stop|
+	  					song_new.stops << stop
+	  				end
 	  				song_new.save
 
 					# if already in database, associate song to existing hotspot
 	  			else
 	  				puts "Found a dupe for: #{song['artist']['name']} '#{song['title']}'"
+
+	  				# associate hotspot & stops with song
 	  				dupe.hotspots << hotspot
+	  				hotspot.stops.each do |stop|
+	  					dupe.stops << stop
+	  				end
 	  				dupe.save
 	  			end
 
@@ -117,6 +124,64 @@ namespace :songs do
   		hotspot.has_generated_song = true
   		hotspot.save
 
+  		# associate song to related stops
+   		song.hotspots.each do |hotspot|
+   			hotspot.stops.each do |stop|
+   				stop.songs << song
+	   		end
+	   	end
+
+	   	song.save
+	  end
+  end
+
+  desc "Get rdio_id from lfid through Echo Nest"
+  task get_rdio_id: :environment do
+
+   	# Get batch of songs from database
+   	@songs = Song.where(rdio_id: nil).limit(10)
+
+  	@songs.each do |song|
+  		# build API request
+			base_uri = "http://developer.echonest.com/api/v4/song/profile?"
+
+			# set required fields
+			search_fields = Hash.new
+			search_fields["api_key"] = ENV['PLAY_ECHONEST_KEY']
+			search_fields["format"] = "json"
+			search_fields["id"] =  "lyricfind-US:song:" + song.lfid
+			search_fields["bucket"] =  "id:rdio-US"
+
+			# format hash key & values for url, compile
+			search_uri = search_fields.to_query.gsub("%3A",":")
+
+			# assemble final url for API call 
+			url = base_uri + search_uri
+
+			puts url
+
+	  	# # place API call
+	  	# response = HTTParty.get(url)
+	  	# response_body = JSON.parse(response.body)
+	  	# songs = response_body["tracks"].to_a
+
+  		# # don't DDOS 'em
+  		# sleep(0.11)
+  	end
+  end
+
+  desc "Associate songs directly to stops"
+  task add_songs_to_route: :environment do
+   	@songs = Song.all
+
+   	@songs.each do |song| 
+   		song.hotspots.each do |hotspot|
+   			hotspot.stops.each do |stop|
+   				stop.songs << song
+	   		end
+	   	end
+
+	   	song.save
 	  end
   end
 

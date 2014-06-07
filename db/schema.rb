@@ -11,16 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140605233619) do
+ActiveRecord::Schema.define(version: 20140607215720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "hotspot_counters", force: true do |t|
-    t.integer  "index"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "hotspots", force: true do |t|
     t.float    "hot_lat"
@@ -50,19 +44,31 @@ ActiveRecord::Schema.define(version: 20140605233619) do
   add_index "hotspots_stops", ["hotspot_id", "stop_id"], name: "index_hotspots_stops_on_hotspot_id_and_stop_id", using: :btree
   add_index "hotspots_stops", ["stop_id", "hotspot_id"], name: "index_hotspots_stops_on_stop_id_and_hotspot_id", using: :btree
 
-  create_table "lyric_searches", force: true do |t|
-    t.string   "searchtype"
-    t.string   "artist"
-    t.string   "album"
-    t.string   "track"
-    t.string   "lyrics"
-    t.string   "meta"
-    t.string   "all"
-    t.string   "limit"
-    t.string   "output"
+  create_table "playlists", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "playlists_routes", id: false, force: true do |t|
+    t.integer "playlist_id", null: false
+    t.integer "route_id",    null: false
+  end
+
+  add_index "playlists_routes", ["route_id", "playlist_id"], name: "index_playlists_routes_on_route_id_and_playlist_id", using: :btree
+
+  create_table "playlists_songs", id: false, force: true do |t|
+    t.integer "song_id",     null: false
+    t.integer "playlist_id", null: false
+  end
+
+  add_index "playlists_songs", ["playlist_id", "song_id"], name: "index_playlists_songs_on_playlist_id_and_song_id", using: :btree
+
+  create_table "playlists_users", id: false, force: true do |t|
+    t.integer "playlist_id", null: false
+    t.integer "user_id",     null: false
+  end
+
+  add_index "playlists_users", ["user_id", "playlist_id"], name: "index_playlists_users_on_user_id_and_playlist_id", using: :btree
 
   create_table "raw_routes", force: true do |t|
     t.string   "route_id"
@@ -135,7 +141,15 @@ ActiveRecord::Schema.define(version: 20140605233619) do
     t.string   "route_desc"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "has_generated_playlist", default: false
   end
+
+  create_table "routes_users", id: false, force: true do |t|
+    t.integer "route_id", null: false
+    t.integer "user_id",  null: false
+  end
+
+  add_index "routes_users", ["user_id", "route_id"], name: "index_routes_users_on_user_id_and_route_id", using: :btree
 
   create_table "songs", force: true do |t|
     t.string   "lfid"
@@ -151,7 +165,16 @@ ActiveRecord::Schema.define(version: 20140605233619) do
     t.float    "score"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "rdio_id"
   end
+
+  create_table "songs_stops", id: false, force: true do |t|
+    t.integer "stop_id", null: false
+    t.integer "song_id", null: false
+  end
+
+  add_index "songs_stops", ["song_id", "stop_id"], name: "index_songs_stops_on_song_id_and_stop_id", using: :btree
+  add_index "songs_stops", ["stop_id", "song_id"], name: "index_songs_stops_on_stop_id_and_song_id", using: :btree
 
   create_table "stops", force: true do |t|
     t.string   "stop_id"
@@ -181,5 +204,11 @@ ActiveRecord::Schema.define(version: 20140605233619) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "users_users", id: false, force: true do |t|
+    t.integer "user_id", null: false
+  end
+
+  add_index "users_users", ["user_id", "user_id"], name: "index_users_users_on_user_id_and_user_id", using: :btree
 
 end

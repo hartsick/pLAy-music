@@ -76,7 +76,7 @@
                 </div>
 
               </li>
-              
+
               <% else %>
               
               <!-- User Sign Out -->
@@ -85,7 +85,34 @@
               </li>
               
               <% end %>
+              
+             <!-- Dropdown menu bar but may switch out to side navbar -->
+              
+              <li class="has-dropdown">
+                
+                <a href="#">Routes</a>
+                
+                  <ul class="dropdown">
+                    <% @routes.each do |r| %>
 
+                      <li class="route-link" data-start-lat="<%= r.route_stops.first.stop.stop_lat %>"
+                        data-start-lon = "<%= r.route_stops.first.stop.stop_lon %>"
+                        data-end-lat = "<%= r.route_stops.last.stop.stop_lat %>"
+                        data-end-lon = " <%= r.route_stops.last.stop.stop_lon%>"
+                        data-name = "<%= r.route_short_name %>"
+                        data-id = "<%= r.id %>"
+                        >
+
+                        <%= r.route_short_name %><%= r.friendly_name %>
+                      </li>
+                    <% end %>
+                
+                  </ul>
+              
+              </li>
+=======
+
+>>>>>>> master
 
             </ul>
     </section>
