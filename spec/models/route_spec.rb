@@ -19,11 +19,13 @@ describe Route, :type => :model do
   it { should have_many(:route_stops)}
   it { should have_many(:stops).through(:route_stops) }
   it { should have_and_belong_to_many(:playlists) }
+  it { should have_many(:songs).through(:stops) }
 
   it { should respond_to(:route_id) }
   it { should respond_to(:route_short_name) }
   it { should respond_to(:route_long_name) }
   it { should respond_to(:route_desc) }
+  it { should respond_to(:has_generated_playlist) }
 
   it "should have unique route_id" do
     @route_copy = Route.new( route_id: '1', route_short_name: 'test route', route_long_name: 'longer name', route_desc: 'route desc' )
@@ -31,7 +33,11 @@ describe Route, :type => :model do
   end
 
   it "should store related stops in .stops" do
-  	expect(@route.stops).to eq([@stop1, @stop2])
+    expect(@route.stops).to eq([@stop1, @stop2])
+  end
+
+  it "should initialize with has_generated_playlist as false" do
+  	expect(@route.has_generated_playlist).to eq(false)
   end
 
 end
