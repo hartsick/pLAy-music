@@ -18,6 +18,7 @@ describe Route, :type => :model do
 
   it { should have_many(:route_stops)}
   it { should have_many(:stops).through(:route_stops) }
+  it { should have_and_belong_to_many(:playlists) }
 
   it { should respond_to(:route_id) }
   it { should respond_to(:route_short_name) }
