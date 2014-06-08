@@ -39,6 +39,10 @@ gem 'httparty'
 # add Google Places
 gem 'google_places'
 
+# Rdio for streaming service
+gem 'multi_json'
+gem 'rdio_api'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
