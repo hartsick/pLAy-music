@@ -2,12 +2,25 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+nav {
+	z-index: 100;
+}
+#map-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	margin-right: 300px;
+	z-index: -1;
+}
+
 #map {
-height: 100%;
-width: 100%;
-margin: 0 auto;
-position: absolute;
-z-index: -1;
+	height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	position: absolute;
+	z-index: -1;
 }
 
 .left-off-canvas-menu ul li {
@@ -105,4 +118,13 @@ left-off-canvas-menu:hover	{
 
 .rdio-player {
 	margin-right: 5px;
+}
+
+.right-sidebar {
+	width: 300px;
+	position: fixed;
+	right: 0;
+	top: 0;
+	height: 100%;
+	background-color: black;
 }
