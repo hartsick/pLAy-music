@@ -8,10 +8,11 @@ describe Song do
   it { should respond_to(:score) }
   it { should respond_to(:context) }
   it { should respond_to(:snippet) }
+  it { should respond_to(:rdio_id) }
 
 	it { should have_and_belong_to_many(:hotspots) } 
-	xit { should have_and_belong_to_many(:playlists) } 
-	xit { should have_and_belong_to_many(:stops) } 
+	it { should have_and_belong_to_many(:playlists) } 
+	it { should have_and_belong_to_many(:stops) } 
 
 	it { should validate_presence_of :lfid }
 	it { should validate_presence_of :amg }
