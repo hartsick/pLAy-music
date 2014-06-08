@@ -174,7 +174,7 @@ namespace :songs do
   task get_en_rdio_id: :environment do
 
    	# Get batch of songs from database
-   	@songs = Song.where(rdio_id: nil).order("RANDOM()").limit(1000)
+   	@songs = Song.where(rdio_id: nil).order("RANDOM()")
 
   	@songs.each do |song|
   		# build API request
@@ -226,7 +226,7 @@ namespace :songs do
 	  		puts "#{song.title} has no rdio_id. Saving 'none'..."
 	  	end
 
-	  	song.update!
+	  	song.save
 
   		# # don't DDOS 'em
   		sleep(3.1)
@@ -285,7 +285,7 @@ namespace :songs do
 	  	# 	puts "#{song.title} has no rdio_id. Saving 'none'..."
 	  	# end
 
-	  	# song.update!
+	  	# song.save!
 
   		# # don't DDOS 'em
   		sleep(3.1)
@@ -303,7 +303,7 @@ namespace :songs do
 	   		end
 	   	end
 
-	   	song.update!
+	   	song.save
 	  end
   end  
 

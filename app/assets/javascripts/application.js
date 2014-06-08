@@ -15,6 +15,8 @@
 //= require foundation
 //= require underscore
 //= require gmaps/google
+//= require hello
+//= require token
 //= require_tree .
 
 
