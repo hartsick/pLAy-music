@@ -122,6 +122,8 @@ namespace :metro_data do
 
 		end
 
+		# TO DO: delete all stops not associated with route
+
 	end
 end
 
