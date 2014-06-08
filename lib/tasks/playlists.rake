@@ -32,7 +32,7 @@ namespace :playlists do
   task generate: :environment do
 
   	# pick set of unprocessed routes
-   	@routes = Route.where(has_generated_playlist: false).limit(5)
+   	@routes = Route.where(has_generated_playlist: false)
 
    	# for each route
   	@routes.each do |route|
@@ -51,9 +51,10 @@ namespace :playlists do
 				end
 			end
 
-			
-
 			# update route
+      @playlist.routes << route
+
+      # update route
 			route.has_generated_playlist = true
 			route.save
 
