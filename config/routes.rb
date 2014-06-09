@@ -1,18 +1,21 @@
 Play::Application.routes.draw do
-  get "songs/index"
-  get "songs/show"
+  get "songs/" => 'songs#index', as: :songs
+  
   get "hotspots/index"
   get "hotspots/show"
-  get "place_searches/index"
+
   get "stops/" => 'stops#index', as: :stops
   get "stops/:id" => 'stops#show', as: :stop
+
   get "routes/" => 'routes#index', as: :routes
   get "routes/:id" => 'routes#show', as: :route
-  get "routes/:id/stops" => 'routes#show', as: :route_stops
-  get "routes/:id/songs" => 'routes#show_songs', as: :route_songs
+
   get "stops/:id/hotspots" => 'hotspots#show', as: :hotspot
   get "hotspots/" => 'hotspots#index', as: :hotspots
-  get "songs/" => 'songs#index', as: :songs
+
+  get "routes/:id/stops" => 'routes#show', as: :route_stops
+  get "routes/:id/songs" => 'routes#show_songs', as: :route_songs
+  get "songs/:id/hotspots" => 'songs#show_hotspots', as: :song_hotspots
   
   devise_for :users
   

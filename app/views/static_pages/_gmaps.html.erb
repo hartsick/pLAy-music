@@ -7,11 +7,11 @@ function initialize() {
  var mapStyle = [{"featureType":"landscape","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","stylers":[{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]},{"featureType":"road.highway","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"road.arterial","stylers":[{"saturation":-100},{"lightness":30},{"visibility":"on"}]},{"featureType":"road.local","stylers":[{"saturation":-100},{"lightness":40},{"visibility":"on"}]},{"featureType":"transit","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"administrative.province","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":-25},{"saturation":-100}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]}];
 
   var mapOptions = {
-    panControl:true,
+    panControl:false,
     zoomControl:false,
     streetViewControl:false,
     scrollwheel:false,
-    navigationControl:true,
+    navigationControl:false,
     mapTypeControl:false,
     draggable: true,
     zoom: 12,
@@ -42,7 +42,8 @@ function initialize() {
         var myLatLng = new google.maps.LatLng(theStop.stop_lat, theStop.stop_lon);
         var marker = new google.maps.Marker({
           position: myLatLng,
-          map: map
+          map: map,
+          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
           // icon: {
           //   path: google.maps.SymbolPath.CIRCLE,
           //   scale: 2,
@@ -73,22 +74,27 @@ function initialize() {
             hotspotArray[i].setMap(null);
           }
 
-          // Add markers for relevant hotspots
-          for (var i = 0; i < songLink.data('hotspots'); i++) {
-            var theSpot = songLink.data('hotspots')[i];
-            var myLatLng = new google.maps.LatLng(theSpot.lat, theSpot.lng);
-            var marker = new google.maps.Marker({
-              position: myLatLng,
-              map: map
-              // icon: {
-              //   path: google.maps.SymbolPath.CIRCLE,
-              //   scale: 2
-              // },
-            });
+          $.getJSON( "songs/" + songLink.data('song-id') + "/hotspots", function( data ){
+            console.log(data);
 
-            // save markers in an array
-            hotspotArray[i] = marker;
-          }
+            // Add markers for relevant hotspots
+            for (var i = 0; i < data.length; i++) {
+              var theSpot = data[i];
+              var myLatLng = new google.maps.LatLng(theSpot.hot_lat, theSpot.hot_lng);
+              var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                // icon: {
+                //   path: google.maps.SymbolPath.CIRCLE,
+                //   scale: 2
+                // },
+              });
+
+              // save markers in an array
+              hotspotArray[i] = marker;
+            }
+          });
         });
       });
 
