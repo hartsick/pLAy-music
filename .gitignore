@@ -20,4 +20,4 @@
 *.csv
 
 # Ignore database dump
-playdb.sql
+*.sql, *.dump
