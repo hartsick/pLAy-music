@@ -2,6 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$maincolor: #333;
+$accentcolor: #008cba;
+
+ul {
+	list-style: none;
+}
+
 nav {
 	z-index: 100;
 }
@@ -121,10 +128,27 @@ left-off-canvas-menu:hover	{
 }
 
 .right-sidebar {
+	color: $maincolor;
+	padding: 10px;
+	padding-top: 50px;
 	width: 300px;
 	position: fixed;
 	right: 0;
 	top: 0;
 	height: 100%;
-	background-color: black;
+	background-color: #8b8b87;
+	overflow-y: scroll;
+}
+
+.right-sidebar li:hover {
+	color: black;
+	cursor: pointer;
+}
+
+.right-sidebar li {
+	margin: 8px 0;
+}
+
+.right-sidebar .artist {
+	font-weight: bold;
 }

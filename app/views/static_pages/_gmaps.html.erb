@@ -42,14 +42,26 @@ function initialize() {
         var marker = new google.maps.Marker({
           position: myLatLng,
           map: map
+          // icon: {
+          //   path: google.maps.SymbolPath.CIRCLE,
+          //   scale: 2,
+
+          // },
         });
 
         // save markers in an array
         markerArray[i] = marker;
-
       }
     });
+
+    $.ajax({
+      url: "routes/" + routeLink.data('id') + "/songs"
+    }).done(function(response){
+      $(".right-sidebar").html(response);
+    });
+
   });
+
 
 }
 

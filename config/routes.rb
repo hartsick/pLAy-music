@@ -8,7 +8,8 @@ Play::Application.routes.draw do
   get "stops/:id" => 'stops#show', as: :stop
   get "routes/" => 'routes#index', as: :routes
   get "routes/:id" => 'routes#show', as: :route
-  get "routes/:id/stops" => 'routes#show', as: :stop_route
+  get "routes/:id/stops" => 'routes#show', as: :route_stops
+  get "routes/:id/songs" => 'routes#show_songs', as: :route_songs
   get "stops/:id/hotspots" => 'hotspots#show', as: :hotspot
   get "hotspots/" => 'hotspots#index', as: :hotspots
   get "songs/" => 'songs#index', as: :songs
