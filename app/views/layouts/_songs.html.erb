@@ -1,18 +1,22 @@
-<div class="right-sidebar">
-	<% if @songs %>
-		<ul>
-		<% @songs.each do |song|%>
-	    <li class="song-link" 
-	    	data-title="<%=song.title %>"
-	    	data-artist="<%=song.artist_name %>"
-	    	data-rdioid="<%=song.rdio_id %>"
-	    	data-song-id="<%=song.id %>"
-	    >
-	      <span class="artist"><%= song.artist_name %></span>: <span class="title"><%= song.title %></span>
-	    </li>
-		<% end %>
-		</ul>
-	<% else %>
-		<p>No songs yet! Click on a route to the left.</p>
-	<% end %>
+<% if @route %>
+<div id="route-name">
+	<h4><%= @route.route_short_name %>: <%= @route.route_long_name %></h4>
 </div>
+<% end %>
+<% if @songs %>
+	<ul>
+	<% @songs.each do |song|%>
+    <li class="song-link" 
+    	data-title="<%=song.title %>"
+    	data-artist="<%=song.artist_name %>"
+    	data-rdioid="<%=song.rdio_id %>"
+    	data-song-id="<%=song.id %>"
+    	data-hotspots="<%=song.hotspots.to_a %>"
+    >
+      <span class="artist"><%= song.artist_name %></span>: <span class="title"><%= song.title %></span>
+    </li>
+	<% end %>
+	</ul>
+<% else %>
+	<p>No songs yet! Click on a route to the left.</p>
+<% end %>

@@ -13,7 +13,7 @@ class RoutesController < ApplicationController
 
   def show_songs
   	@route = Route.find(params[:id])
-  	@songs = @route.songs.distinct
+  	@songs = @route.songs.where.not(rdio_id: "none").distinct
 
   	render 'show_songs'
   end
