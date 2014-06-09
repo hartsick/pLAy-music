@@ -1,10 +1,12 @@
 class SongsController < ApplicationController
+  respond_to :json, :html
+  
   def index
   	@songs = Song.all
   end
 
-  def show
+  def show_hotspots
   	@song = Song.find(params[:id])
-  	@song.hotspots
+  	respond_with @song.hotspots
   end
 end
