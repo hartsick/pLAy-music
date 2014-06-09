@@ -29,5 +29,5 @@ THE SOFTWARE.
 //   {"status": "ok", "result": "YOUR_PLAYBACK_TOKEN"}
 // then update playback_token below with YOUR_PLAYBACK_TOKEN and the domain below with YOUR_DOMAIN
 
-var playback_token = "GBVTlXBu_____2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbnBsYXktbGEuaGVyb2t1YXBwLmNvbf9CGjzhYoSbuy9Pls2x0VM=";
+var playback_token = "GBVTlXHTARMmh2R2cHlzNHd5ZXg3Z2M0OXdoaDY3aHdrbnBsYXktbGEuaGVyb2t1YXBwLmNvbZsam_IHD-KJMqK9JtdzUW8=";
 var domain = "play-la.herokuapp.com";
