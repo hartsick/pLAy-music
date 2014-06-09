@@ -43,7 +43,8 @@ function initialize() {
         var marker = new google.maps.Marker({
           position: myLatLng,
           map: map,
-          icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+          icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+          title: data.stops[i].stop_name
           // icon: {
           //   path: google.maps.SymbolPath.CIRCLE,
           //   scale: 2,
@@ -84,7 +85,8 @@ function initialize() {
               var marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+                icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                title: theSpot.name
                 // icon: {
                 //   path: google.maps.SymbolPath.CIRCLE,
                 //   scale: 2
