@@ -2,9 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$maincolor: #333;
+$accentcolor: #008cba;
+$lightcolor: #f7f7f7;
+$bgcolor: #8b8b87;
+
+ul {
+	list-style: none;
+}
+
 nav {
 	z-index: 100;
 }
+
 #map-container {
 	position: fixed;
 	top: 0;
@@ -12,7 +22,6 @@ nav {
 	right: 0;
 	height: 100%;
 	margin-right: 300px;
-	z-index: -1;
 }
 
 #map {
@@ -20,7 +29,6 @@ nav {
 	width: 100%;
 	margin: 0 auto;
 	position: absolute;
-	z-index: -1;
 }
 
 .left-off-canvas-menu ul li {
@@ -117,14 +125,50 @@ left-off-canvas-menu:hover	{
 }
 
 .rdio-player {
+	height: 45px;
 	margin-right: 5px;
+
+	.track-info {
+		color: $lightcolor;
+		line-height: 2em;
+	}
+}
+
+#route-name {
+	position: fixed;
+	top: 45px;
+	right: 0;
+	background: $bgcolor;
+	width: 280px;
+	padding: 5px 0;
 }
 
 .right-sidebar {
+	color: $maincolor;
+	padding: 10px;
+	padding-top: 80px;
 	width: 300px;
 	position: fixed;
 	right: 0;
 	top: 0;
 	height: 100%;
-	background-color: black;
+	background-color: #8b8b87;
+	overflow-y: scroll;
+
+	.artist {
+		font-weight: bold;
+	}
+
+	h4 {
+		color: $lightcolor;	
+	}
+
+	li:hover {
+		color: black;
+		cursor: pointer;
+	}
+
+	li {
+		margin: 8px 0;
+	}
 }

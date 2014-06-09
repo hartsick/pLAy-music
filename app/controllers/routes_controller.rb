@@ -11,4 +11,11 @@ class RoutesController < ApplicationController
     respond_with @route
   end
 
+  def show_songs
+  	@route = Route.find(params[:id])
+  	@songs = @route.songs.where.not(rdio_id: "none").distinct
+
+  	render 'show_songs'
+  end
+
 end

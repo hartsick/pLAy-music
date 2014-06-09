@@ -1,8 +1,10 @@
-
 <!-- shows top navbar -->
 <%= render partial: "layouts/nav" %>
 
-<%= render partial: "songs" %>
+<div class="right-sidebar">
+	<!-- show songs for route -->
+	<%= render partial: "layouts/songs" %>
+</div>
 
 <!-- shows gmap full screen -->
 <%= render partial: "gmaps" %>

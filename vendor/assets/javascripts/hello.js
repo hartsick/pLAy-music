@@ -41,7 +41,7 @@ $(document).ready(function() {
 
   // set up the controls
   $('#play').click(function() {
-    apiswf.rdio_play($('#play_key').val());
+    apiswf.rdio_play();
   });
   $('#stop').click(function() { apiswf.rdio_stop(); });
   $('#pause').click(function() { apiswf.rdio_pause(); });
